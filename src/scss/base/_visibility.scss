@@ -1,0 +1,9 @@
+// Visibility
+@each $breakpoint in map-keys($media) {
+	@include media($breakpoint) {
+		$bp: breakpoint($breakpoint);
+
+		.visible#{$bp} { display: inherit; }
+		.hidden#{$bp}  { display: none; }
+	}
+}

@@ -1,0 +1,67 @@
+// Transition Delay
+@for $i from 1 through 15 {
+    [class*='motion-'][data-delay='#{$i}'] {
+        transition-delay: $i * 0.1 + s;
+    }
+}
+
+// Transition Duration
+@for $i from 1 through 15 {
+    [class*='motion-'][data-time='#{$i}'] {
+        transition-duration: $i * 0.1 + s;
+    }
+}
+
+// Global State & Transition
+[class*='motion-'] {
+    opacity: 0;
+    will-change: transform;
+    transition: .5s $ease-out;
+    transition-property: transform, opacity;
+}
+
+.motion {
+    // Motion Zoom In
+    &-in {
+        transform: scale(1.1);
+    }
+
+    // Motion Zoom Out
+    &-out {
+        transform: scale(0.9);
+    }
+
+    // Motion From Top
+    &-top {
+        transform: translateY(-50px);
+    }
+
+    // Motion From Bottom
+    &-bottom {
+        transform: translateY(50px);
+    }
+
+    // Motion From Left
+    &-left {
+        transform: translateX(-50px);
+    }
+
+    // Motion From Right
+    &-right {
+        transform: translateX(50px);
+    }
+}
+
+// Motion Process
+.has-motion {
+    .motion-fade,
+    .motion-in,
+    .motion-out,
+    .motion-top,
+    .motion-bottom,
+    .motion-left,
+    .motion-right {
+        opacity: 1;
+        transform: translate(0) scale(1);
+    }
+}

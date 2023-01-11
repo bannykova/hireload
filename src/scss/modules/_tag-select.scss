@@ -1,0 +1,110 @@
+.tag-select {
+    position: relative;
+
+    &-dropdown {
+        position: absolute;
+        z-index: 2;
+        max-height: 300px;
+        min-width: 180px;
+        margin-top: 5px;
+        overflow: auto;
+        background-color: $color-dark;
+        padding: 10px;
+        transform: translate(10px, 10px);
+        border: 1px solid $color-white;
+        opacity: 0;
+        visibility: hidden;
+        transition: .3s $ease-out;
+        transition-property: transform, opacity, visibility;
+        @include radius(sm);
+        @include shadow(sm);
+
+        &.is-active {
+            transform: translate(0);
+            visibility: visible;
+            opacity: 1;
+        }
+
+        &-list {
+            list-style: none;
+            color: $color-white;
+
+            &:nth-child(2) {
+                margin-top: 10px;
+            }
+
+            &:empty {
+                display: none;
+            }
+
+            li {
+                padding: 10px;
+                cursor: pointer;
+                transition: background-color .3s $ease-out;
+                user-select: none;
+                text-transform: capitalize;
+                @include radius(sm);
+
+                &:not(:last-child) {
+                    margin-bottom: 5px;
+                }
+
+                &:hover {
+                    background: lighten($color-dark, 5);
+                }
+
+                &.is-active {
+                    color: $color-dark;
+                    background-color: $color-accent;
+                }
+            }
+        }
+    }
+
+    &-input {
+        @extend .form-control;
+    }
+
+    &-selected {
+        @extend .form-control;
+        display: flex;
+        flex-wrap: wrap;
+        list-style: none;
+        padding: 5px 5px 0;
+        user-select: none;
+        cursor: pointer;
+        min-height: 42px;
+
+        @include media(md) {
+            max-width: 300px;
+        }
+
+        li {
+            margin: 0 5px 5px 0;
+            padding: 3px 5px;
+            border: 1px solid $color-dark;
+            cursor: default;
+            text-transform: capitalize;
+            @include radius(xs);
+
+            &.is-hidden {
+                display: none;
+            }
+        }
+    }
+
+    &-close {
+        display: inline-block;
+        cursor: pointer;
+        margin-left: 3px;
+        transition: color .3s $ease-out;
+
+        &:hover {
+            color: $color-red;
+        }
+    }
+
+    select {
+        display: none;
+    }
+}

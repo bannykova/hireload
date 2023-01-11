@@ -1,0 +1,43 @@
+.footer {
+    box-shadow: inset 0 60px 72px rgba($color-accent, .15);
+    padding: 40px 0;
+
+    .logo {
+        background-image: url('../img/logo/logo-secondary.svg');
+    }
+
+    a:hover {
+        color: darken($color-accent, 20%);
+
+        .svg-icon {
+            fill: darken($color-accent, 20%);
+        }
+    }
+
+    address {
+        font-size: rem(14);
+        font-style: normal;
+    }
+
+    &-menu {
+        max-width: 320px;
+        list-style: none;
+    }
+
+    &-social .svg-icon {
+        width: 20px;
+        height: 20px;
+        flex: 1 0 auto;
+        fill: currentColor;
+        transition: fill .3s $ease-out;
+    }
+}
+
+%footer-dark {
+    background-color: $color-dark;
+    color: $color-white;
+
+    .logo {
+        background-image: url('../img/logo/logo-tertiary.svg');
+    }
+}

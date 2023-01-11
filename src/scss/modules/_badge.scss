@@ -1,0 +1,35 @@
+.badge {
+    display: inline-block;
+    padding: 3px 10px;
+    font-size: rem(18);
+    line-height: rem(24);
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    text-decoration: none;
+    cursor: default;
+    color: $color-dark;
+    background-color: lighten($color-accent, 30%);
+    font-family: $font-base;
+    border: 1px solid $color-accent;
+    @include radius(sm);
+
+    a &, button & {
+        cursor: pointer;
+    }
+
+    &:empty {
+        display: none;
+    }
+
+    @each $color, $value in $colors {
+        &-#{$color} {
+            @if index('light', $color) {
+                color: $color-dark;
+            } @else {
+                color: $color-white;
+            }
+            background-color: $value;
+        }
+    }
+}

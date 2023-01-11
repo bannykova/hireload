@@ -1,0 +1,562 @@
+// Input styles
+%form-control {
+    display: block;
+    padding: 9px 12px;
+    width: 100%;
+    min-height: 40px;
+    border: 1px solid $color-dark;
+    background-color: $color-white;
+    background-clip: padding-box;
+    color: $color-dark;
+    z-index: 1;
+    font-size: rem(16);
+    font-family: $font-base;
+    transition: .3s $ease-out;
+    transition-property: background-color, border-color, box-shadow;
+
+    @include radius(sm);
+}
+
+.form {
+    &-control {
+        @extend %form-control;
+
+        // Auto fill Chrome & Firefox
+        &:-webkit-autofill,
+        &:-webkit-autofill:focus {
+            -webkit-text-fill-color: $color-white;
+            filter: none;
+            box-shadow: inset 0 0 0 50px lighten($color-dark, 8);
+        }
+
+        &:hover {
+            border-color: $color-dark;
+        }
+
+        &:focus:not([readonly]) {
+            border-color: darken($color-accent, 20%) !important;
+            box-shadow: 0 0 20px rgb($color-accent, .3);
+        }
+
+        &:focus-visible:not([readonly]) {
+            color: $color-dark !important;
+        }
+
+        // Unstyle the caret on `<select>`s in IE10+.
+        &::-ms-expand {
+            border: 0;
+            background-color: transparent;
+        }
+
+        // Remove select outline from select box in FF
+        &:-moz-focusring {
+            color: transparent;
+            text-shadow: 0 0 0 $color-dark;
+        }
+
+        // Placeholder
+        &::placeholder {
+            color: rgba($color-dark, .5);
+        }
+
+        // Disabled inputs
+        &:disabled {
+            pointer-events: none;
+        }
+
+        // Disabled and read-only inputs
+        &:disabled, &[readonly] {
+            border-color: $color-dark;
+            background-color: rgba($color-dark, .5);
+            background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" fill="#{$color-dark}" viewBox="0 0 448 512"%3E%3Cpath d="M400 224h-24v-72C376 68.2 307.8 0 224 0S72 68.2 72 152v72H48c-26.5 0-48 21.5-48 48v192c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V272c0-26.5-21.5-48-48-48zM264 392c0 22.1-17.9 40-40 40s-40-17.9-40-40v-48c0-22.1 17.9-40 40-40s40 17.9 40 40v48zm32-168H152v-72c0-39.7 32.3-72 72-72s72 32.3 72 72v72z"/%3E%3C/svg%3E');
+            background-position: right 15px center;
+            background-size: 18px 18px;
+            background-repeat: no-repeat;
+            color: $color-dark;
+
+            &::placeholder {
+                color: lighten($color-dark, 20%);
+            }
+
+            & + .input-group-append {
+                // pointer-events: none;
+
+                .btn, .input-group-text {
+                    background-color: rgba($color-dark, .5);
+                    border-color: $color-dark;
+
+                    .svg-icon {
+                        fill: $color-dark;
+                        transition: .3s $ease-out;
+                        cursor: pointer;
+
+                        &:hover {
+                            fill: $color-white;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    &-text {
+        display: inline-flex;
+        margin-top: 10px;
+    }
+
+    &-group {
+        position: relative;
+        margin-bottom: 20px;
+
+        // Label with icon
+        label .svg-icon {
+            width: 14px;
+            height: 14px;
+            fill: $color-white;
+        }
+
+        // Validation
+        &.is-invalid, &.is-valid {
+            .form-control {
+                padding-right: 40px;
+                background-position: right 10px center;
+                background-size: 16px 16px;
+                background-repeat: no-repeat;
+            }
+
+            select.form-control {
+                padding-right: 60px;
+                background-position: right 10px center, right 35px center;
+            }
+
+            .invalid-tooltip {
+                display: block;
+            }
+        }
+
+        &.is-valid {
+            .input-group-text, .form-control {
+                border-color: $color-green !important;
+            }
+
+            .form-control {
+                background-image: url('data:image/svg+xml,%3Csvg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"%3E%3Cpath d="M6.1136 15.0348L0.263593 9.15121C-0.0878644 8.79773 -0.0878644 8.2246 0.263593 7.87109L1.53636 6.59097C1.88781 6.23746 2.4577 6.23746 2.80915 6.59097L6.75 10.5544L15.1908 2.0651C15.5423 1.71162 16.1122 1.71162 16.4636 2.0651L17.7364 3.34521C18.0879 3.69869 18.0879 4.27182 17.7364 4.62533L7.3864 15.0349C7.0349 15.3884 6.46506 15.3884 6.1136 15.0348V15.0348Z" fill="%234FBF67"/%3E%3C/svg%3E%0A');
+            }
+
+            select.form-control {
+                background-image: url('data:image/svg+xml,%3Csvg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"%3E%3Cpath d="M6.1136 15.0348L0.263593 9.15121C-0.0878644 8.79773 -0.0878644 8.2246 0.263593 7.87109L1.53636 6.59097C1.88781 6.23746 2.4577 6.23746 2.80915 6.59097L6.75 10.5544L15.1908 2.0651C15.5423 1.71162 16.1122 1.71162 16.4636 2.0651L17.7364 3.34521C18.0879 3.69869 18.0879 4.27182 17.7364 4.62533L7.3864 15.0349C7.0349 15.3884 6.46506 15.3884 6.1136 15.0348V15.0348Z" fill="%234FBF67"/%3E%3C/svg%3E%0A'), url('data:image/svg+xml,%3Csvg width=\'10\' height=\'7\' viewBox=\'0 0 10 7\' fill=\'none\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M4.61138 6.13042L0.160979 2.05629C-0.0536598 1.8598 -0.0536598 1.54124 0.160979 1.34477L0.680047 0.869585C0.89432 0.673429 1.24159 0.673052 1.45637 0.868746L5.00001 4.09757L8.54363 0.868746C8.75841 0.673052 9.10568 0.673429 9.31995 0.869585L9.83902 1.34477C10.0537 1.54126 10.0537 1.85982 9.83902 2.05629L5.38864 6.13042C5.174 6.32689 4.82602 6.32689 4.61138 6.13042Z\' fill=\'white\'/%3E%3C/svg%3E%0A');
+            }
+        }
+
+        &.is-invalid {
+            .input-group-text, .form-control {
+                border-color: $color-red !important;
+            }
+
+            .form-control {
+                background-image: url('data:image/svg+xml,%3Csvg width=\'18\' height=\'18\' viewBox=\'0 0 18 18\' fill=\'none\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M18 9C18 13.9717 13.9702 18 9 18C4.02979 18 0 13.9717 0 9C0 4.03124 4.02979 0 9 0C13.9702 0 18 4.03124 18 9ZM9 10.8145C8.07804 10.8145 7.33064 11.5619 7.33064 12.4839C7.33064 13.4058 8.07804 14.1532 9 14.1532C9.92196 14.1532 10.6694 13.4058 10.6694 12.4839C10.6694 11.5619 9.92196 10.8145 9 10.8145ZM7.41509 4.81406L7.68429 9.74954C7.69689 9.98049 7.88785 10.1613 8.11912 10.1613H9.88088C10.1122 10.1613 10.3031 9.98049 10.3157 9.74954L10.5849 4.81406C10.5985 4.5646 10.3999 4.35484 10.1501 4.35484H7.84989C7.60006 4.35484 7.40148 4.5646 7.41509 4.81406V4.81406Z\' fill=\'%23FF6628\'/%3E%3C/svg%3E%0A');
+            }
+
+            select.form-control {
+                background-image: url('data:image/svg+xml,%3Csvg width=\'18\' height=\'18\' viewBox=\'0 0 18 18\' fill=\'none\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M18 9C18 13.9717 13.9702 18 9 18C4.02979 18 0 13.9717 0 9C0 4.03124 4.02979 0 9 0C13.9702 0 18 4.03124 18 9ZM9 10.8145C8.07804 10.8145 7.33064 11.5619 7.33064 12.4839C7.33064 13.4058 8.07804 14.1532 9 14.1532C9.92196 14.1532 10.6694 13.4058 10.6694 12.4839C10.6694 11.5619 9.92196 10.8145 9 10.8145ZM7.41509 4.81406L7.68429 9.74954C7.69689 9.98049 7.88785 10.1613 8.11912 10.1613H9.88088C10.1122 10.1613 10.3031 9.98049 10.3157 9.74954L10.5849 4.81406C10.5985 4.5646 10.3999 4.35484 10.1501 4.35484H7.84989C7.60006 4.35484 7.40148 4.5646 7.41509 4.81406V4.81406Z\' fill=\'%23FF6628\'/%3E%3C/svg%3E%0A'), url('data:image/svg+xml,%3Csvg width=\'10\' height=\'7\' viewBox=\'0 0 10 7\' fill=\'none\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M4.61138 6.13042L0.160979 2.05629C-0.0536598 1.8598 -0.0536598 1.54124 0.160979 1.34477L0.680047 0.869585C0.89432 0.673429 1.24159 0.673052 1.45637 0.868746L5.00001 4.09757L8.54363 0.868746C8.75841 0.673052 9.10568 0.673429 9.31995 0.869585L9.83902 1.34477C10.0537 1.54126 10.0537 1.85982 9.83902 2.05629L5.38864 6.13042C5.174 6.32689 4.82602 6.32689 4.61138 6.13042Z\' fill=\'white\'/%3E%3C/svg%3E%0A');
+            }
+        }
+    }
+
+    &-row {
+        display: flex;
+        flex-direction: column;
+        margin-right: -10px;
+        margin-left: -10px;
+
+        .input-group, .form-control {
+            width: auto;
+        }
+
+        .form-group .form-control {
+            width: 100%;
+        }
+
+        @include media(md) {
+            flex-direction: row;
+
+            .input-group, .form-control, .form-group {
+                width: 100%;
+            }
+    
+            & > select.form-control {
+                width: calc(100% - 40px);
+            }
+        }
+
+        .form-group {
+            margin-right: 10px;
+            margin-left: 10px;
+        }
+
+        & > .input-group, & > .form-control {
+            margin-right: 10px;
+            margin-left: 10px;
+
+            &:not(:last-child) {
+                margin-bottom: 20px;
+
+                @include media(md) {
+                    margin-bottom: 0;
+                }
+            }
+        }
+
+        & + .form-row {
+            margin-top: 20px;
+        }
+    }
+}
+
+// Input group
+.input-group {
+    position: relative;
+    display: flex;
+    align-items: stretch;
+    width: 100%;
+    z-index: 1;
+
+    &:hover {
+        .input-group-text, .btn, .form-control:not(:read-only) {
+            border-color: $color-dark;
+        }
+    }
+
+    > .form-control {
+
+        &:not(:last-child) {
+            border-right-width: 0;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+
+        &:not(:first-child) {
+            border-left-width: 0;
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+
+            &:focus {
+                //border-left: 1px solid $color-accent;
+                border-width: 1px;
+                margin-left: -1px;
+                margin-right: -1px;
+            }
+        }
+
+        & + .form-control {
+            border-left: 1px solid $color-dark;
+        }
+    }
+
+    // Textual addons
+    &-text {
+        display: flex;
+        align-items: center;
+        background-color: $color-white;
+        padding: 7px 10px;
+        border: 1px solid $color-dark;
+        transition: .3s $ease-out;
+        transition-property: border-color, box-shadow;
+
+        input[type='radio'], input[type='checkbox'] {
+            margin-top: 0;
+        }
+
+        .svg-icon {
+            width: 18px;
+            height: 18px;
+            fill: $color-white;
+        }
+    }
+
+    // Prepend and append addons
+    &-prepend, &-append {
+        display: flex;
+
+        .btn {
+            border-radius: 0;
+            border: 1px solid transparent;
+            box-shadow: none;
+        }
+    }
+
+    &-prepend {
+
+        .btn:first-child {
+            border-radius: 7px 0 0 7px;
+        }
+
+        .input-group-text {
+            border-radius: 8px 0 0 8px;
+            border-right-width: 0;
+        }
+    }
+
+    &-append {
+
+        .btn:last-child {
+            border-radius: 0 7px 7px 0;
+        }
+
+        .input-group-text {
+            border-left-width: 0;
+            border-right-width: 0;
+
+            &:last-child {
+                border-radius: 0 8px 8px 0;
+                border-right-width: 1px;
+            }
+        }
+    }
+
+    &.is-readonly {
+        .input-group-prepend, .input-group-append {
+            .input-group-text {
+                border-color: lighten($color-dark, 20%);
+            }
+        }
+    }
+}
+
+// Base input reset
+label {
+    display: inline-block;
+    margin-bottom: 5px;
+}
+
+input[type='date'], input[type='time'], input[type='datetime-local'], input[type='month'] {
+    &.form-control {
+        appearance: none; // Fix appearance for date inputs in Safari
+    }
+}
+
+select.form-control {
+    padding-right: 40px;
+    background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 8"%3E%3Cpath stroke="%23002134" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6 6-6"/%3E%3C/svg%3E');
+    background-position: right 15px center;
+    background-size: 14px 8px;
+    background-repeat: no-repeat;
+    appearance: none;
+
+    // Mozilla outline clear
+    &:-moz-focusring, &::-moz-focus-inner {
+        color: transparent;
+        text-shadow: 0 0 0 $color-white;
+    }
+
+    // IE expand clear
+    &::-ms-expand {
+        display: none;
+    }
+
+    // Suppress the nested default white text on blue background highlight
+    &:focus::-ms-value {
+        background-color: $color-white;
+        color: $color-dark;
+    }
+}
+
+// Checkbox & Radio
+.custom-control {
+    position: relative;
+    z-index: 1;
+    min-height: 20px;
+
+    color-adjust: exact; // Keep themed appearance for print
+
+    &-label {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        margin-bottom: 0;
+        cursor: pointer;
+
+        &:before {
+            display: inline-block;
+            flex-shrink: 0;
+            margin-right: 10px;
+            margin-bottom: auto;  //Fix wrap bug
+            width: 20px;
+            height: 20px;
+            border: 1px solid $color-dark;
+            border-radius: 6px;
+            background-color: $color-white;
+            box-shadow: inset 0 0 0 0 $color-dark;
+            content: '';
+            transition: .3s $ease-out;
+            transition-property: background-color, box-shadow;
+        }
+
+        &:after {
+            position: absolute;
+            top: 3px;
+            left: 8px;
+            width: 6px;
+            height: 10px;
+            border-right: 2px solid $color-accent;
+            border-bottom: 2px solid $color-accent;
+            content: '';
+            opacity: 0;
+            transition: .3s $ease-out;
+            transition-property: opacity, transform, box-shadow;
+            transform: rotate(45deg) scale(0);
+        }
+    }
+
+
+    &-input {
+        display: none;
+
+        // Checkbox
+        &[type='checkbox']:checked ~ .custom-control-label {
+            &:before {
+                box-shadow: inset 0 0 0 25px $color-dark;
+            }
+
+            &:after {
+                opacity: 1;
+                transform: rotate(45deg) scale(1);
+            }
+        }
+
+
+        // Radio
+        &[type='radio']:checked ~ .custom-control-label:before {
+            background-color: $color-accent;
+            box-shadow: inset 0 0 0 5px $color-dark;
+        }
+
+        &[type='radio'] + .custom-control-label {
+            &:before, &:after {
+                border-radius: 50%;
+            }
+        }
+
+
+        // Validation
+        &.is-invalid {
+            ~ .custom-control-label {
+                color: $color-red;
+
+                &:before {
+                    border-color: $color-red;
+                }
+            }
+        }
+
+        &.is-valid ~ .custom-control-label {
+            color: $color-green;
+
+            &:before {
+                border-color: $color-green;
+            }
+        }
+    }
+
+    // Switch
+    &.custom-switch {
+        .custom-control-label {
+            &:before {
+                width: 70px;
+                height: 37px;
+                border-radius: 40px;
+            }
+
+            &:after {
+                top: 4px;
+                left: 4px;
+                width: 30px;
+                height: 30px;
+                border-radius: 50%;
+                background: linear-gradient(135deg, $color-white 40%, #D1D1D1);
+                border: 1px solid $color-dark;
+                box-shadow: none;
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        :checked ~ .custom-control-label:after {
+            left: 5px;
+            transform: translateX(100%);
+            background: $color-accent;
+        }
+    }
+}
+
+.checkbox-group {
+    height: auto;
+    padding: 15px;
+
+    @extend %form-control;
+
+    .custom-control:not(:last-child) {
+        margin-bottom: 10px;
+    }
+}
+
+
+// Validation feedback
+.valid-feedback, .invalid-feedback {
+    display: none;
+    margin-top: .25rem;
+    width: 100%;
+    color: $color-green;
+    font-size: .875em;
+}
+
+.invalid-feedback {
+    color: $color-red;
+}
+
+.valid-tooltip, .invalid-tooltip {
+    position: absolute;
+    z-index: 3;
+    display: none;
+    padding: 3px 5px;
+    max-width: 100%;
+    width: 100%;
+    background-color: $color-green;
+    color: $color-white;
+    font-size: rem(14);
+    border-radius: 0 0 8px 8px;
+
+    &:before {
+        position: absolute;
+        left: 20px;
+        z-index: -1;
+        margin-top: -8px;
+        width: 10px;
+        height: 10px;
+        border-radius: 4px 0 0 0;
+        background-color: $color-green;
+        //content: '';
+        transform: rotate(45deg);
+    }
+}
+
+.invalid-tooltip, .invalid-tooltip:before {
+    background-color: $color-red;
+}
+
+.is-valid ~ .valid-feedback, .is-valid ~ .valid-tooltip,
+.is-invalid ~ .invalid-feedback, .is-invalid ~ .invalid-tooltip {
+    display: block;
+}
+
+.is-invalid {
+
+    > .form-control {
+        box-shadow: 0 8px 0 0 $color-red;
+    }
+
+    .input-group {
+        background-color: $color-red;
+        border-radius: 8px 8px 0 0;
+    }
+}

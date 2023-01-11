@@ -1,0 +1,19 @@
+// Width & Height
+@each $breakpoint in map-keys($media) {
+	@include media($breakpoint) {
+		$bp: breakpoint($breakpoint);
+
+		@each $length in $lengths {
+			@if $length == 33 {
+				.w#{$bp}-#{$length} { width: #{$length + '.33%'} }
+				.h#{$bp}-#{$length} { height: #{$length + '.33%'} }
+			} @else {
+				.w#{$bp}-#{$length} { width: #{$length + '%'} }
+				.h#{$bp}-#{$length} { height: #{$length + '%'} }
+			}
+		}
+
+        .w#{$bp}-a { width: auto; }
+        .h#{$bp}-a { height: auto; }
+	}
+}

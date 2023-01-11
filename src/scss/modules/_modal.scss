@@ -1,0 +1,113 @@
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    overflow-x: hidden;
+    overflow-y: auto;
+    width: 100%;
+    min-width: 320px;
+    height: 100%;
+    outline: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: .5s $ease-out;
+    transition-property: opacity, visibility;
+
+    &:before {
+        content: '';
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba($color-dark, .6);
+    }
+
+    &.is-active {
+        opacity: 1;
+        visibility: visible;
+
+        .modal-dialog {
+            transform: translateY(0);
+        }
+    }
+
+    &-dialog {
+        position: relative;
+        padding: 20px;
+        width: auto;
+        pointer-events: none;
+        transform: translateY(50px);
+        will-change: transform;
+        transition: transform .5s $ease-out;
+
+        &-centered {
+            display: flex;
+            align-items: center;
+            min-height: 100%;
+
+            &::before {
+                display: block; // IE10
+                height: 100vh;
+                height: min-content; // Reset height to 0 except on IE
+                content: '';
+            }
+        }
+    }
+
+    &-content {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        max-width: 770px;
+        outline: 0;
+        margin: 0 auto;
+        background-color: $color-white;
+        background-clip: padding-box;
+        color: $color-dark;
+        pointer-events: auto;
+        @include radius(md);
+    }
+
+    &-close {
+        padding: 10px;
+        margin: 10px;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        color: $color-dark;
+        font-size: rem(24);
+        line-height: .8;
+        text-align: center;
+        background: none;
+        border: none;
+        cursor: pointer;
+        transition: color .3s $ease-out;
+
+        &:hover {
+            color: darken($color-accent, 20%);
+        }
+    }
+
+    &-body {
+        position: relative;
+        flex: 1 0 auto;
+        padding: 0 20px 20px;
+
+        @include media(md) {
+            padding: 0 100px 80px;
+        }
+    }
+
+    &-open {
+        overflow: hidden;
+
+        .modal {
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+    }
+}

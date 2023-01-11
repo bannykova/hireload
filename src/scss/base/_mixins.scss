@@ -1,0 +1,138 @@
+// PX to REM
+@function rem($px, $base: 16) {
+    @return #{$px/$base}rem;
+}
+
+// PX to EM
+@function em($px, $base: 16) {
+    @return #{$px/$base}em;
+}
+
+// Sun loader
+@mixin loading-sun($color) {
+    background-image: url('data:image/svg+xml,%3Csvg width="100" height="100" viewBox="0 0 100 100" fill="#{$color}" xmlns="http://www.w3.org/2000/svg"%3E%3Cstyle%3E.line %7Banimation: moveY 1s linear infinite%7D@keyframes moveY %7Bto%7Btransform: translateY(15px)%7D%7D%3C/style%3E%3Cmask id="mask" x="0" y="0" width="100" height="100"%3E%3Ccircle cx="50" cy="50" r="50" fill="%23fff"/%3E%3C/mask%3E%3Cg mask="url(%23mask)"%3E%3Crect width="100" height="40" y="0"/%3E%3Cg class="line"%3E%3Crect width="100" height="5" y="25"/%3E%3Crect width="100" height="5" y="40"/%3E%3Crect width="100" height="5" y="55"/%3E%3Crect width="100" height="5" y="70"/%3E%3Crect width="100" height="5" y="85"/%3E%3Crect width="100" height="5" y="100"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E%0A');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+}
+
+// Border radius
+// Example: @include: radius(xs);
+@mixin radius($value) {
+    border-radius: map-get($radius, $value) + px;
+}
+
+// Shadows
+@mixin shadow($value) {
+    @if $value == sm {
+        box-shadow: 0 10px 15px rgba($color-dark, .25);
+    } @else if $value == md {
+        box-shadow: 0 15px 40px rgba($color-dark, .1);
+    } @else {
+        @error 'Avalaible vars sm and md'
+    }
+}
+
+// Adaptive: Add media
+// Example: @include media(md) {}
+// Example: @include media(custom, 400) {}
+@mixin media($name, $value: '') {
+    @if $name == xs {
+        @content;
+    } @else if $name != custom {
+        @media (min-width: map-get($media, $name)) { @content; }
+    } @else {
+        @media (min-width: $value + 'px') { @content; }
+    }
+}
+
+@mixin media-max($name, $value: '') {
+    @if $name == xs {
+        @content;
+    } @else if $name != custom {
+        @media (max-width: map-get($media, $name)) { @content; }
+    } @else {
+        @media (max-width: $value + 'px') { @content; }
+    }
+}
+
+// Adaptive: Add '-' if value not equal to 0
+@function breakpoint($name) {
+    $breakpoint: map-get($media, $name);
+    $result: if($breakpoint == 0, '', "-#{$name}");
+    @return $result;
+}
+
+
+// Only Mozilla
+@mixin mozilla() {
+    @-moz-document url-prefix() {
+        @content;
+    }
+}
+
+// Only Webkit
+@mixin webkit() {
+    @media (-webkit-min-device-pixel-ratio: 0) {
+        @content;
+    }
+}
+
+// Only Safari
+@mixin safari() {
+    &:not(:root:root) {
+        @content;
+    }
+}
+
+// Only IE
+@mixin ie() {
+	@media all and (-ms-high-contrast:none) {
+        @content;
+    }
+}
+
+// Print
+@mixin print() {
+	@media print {
+		@content;
+	}
+}
+
+// Placeholder Color
+@mixin placeholder {
+    &::-webkit-input-placeholder,
+    &:-moz-placeholder,
+    &::-moz-placeholder,
+    &:-ms-input-placeholder {
+        @content
+    }
+}
+
+// Ellipsis
+@mixin ellipsis($line: 3, $color: $color-dark) {
+    position: relative;
+    overflow: hidden;
+
+    &:after {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        width: 15%;
+        height: 1em;
+        content: '';
+        text-align: right;
+        background: linear-gradient(90deg, rgba($color, 0), rgba($color, 1) 50%);
+    }
+
+    @supports (-webkit-line-clamp: $line) {
+        display: -webkit-box;
+        height: auto;
+        -webkit-line-clamp: $line;
+        -webkit-box-orient: vertical;
+
+        &:after {
+            display: none;
+        }
+    }
+}

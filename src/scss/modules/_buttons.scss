@@ -1,0 +1,84 @@
+.btn {
+    display: inline-block;
+    vertical-align: middle;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color .3s $ease-out;
+    text-align: center;
+    white-space: nowrap;
+    text-decoration: none;
+    color: $color-dark;
+    background-color: $color-accent;
+    font-family: $font-base;
+    font-size: rem(18);
+    line-height: rem(25);
+    text-transform: uppercase;
+    font-weight: 800;
+    user-select: none;
+    border: none;
+    letter-spacing: 1.7px;
+    @include radius(sm);
+
+    &:hover, &:active {
+        background-color: lighten($color-accent, 25%);
+    }
+
+    &:disabled, .is-disabled {
+        pointer-events: none;
+        background-color: rgba($color-accent, .5);
+        color: rgba($color-dark, .5);
+    }
+
+    .svg-icon {
+        position: relative;
+        top: 3px;
+        width: 20px;
+        height: 20px;
+        fill: currentColor;
+        margin-bottom: -1px; // Fix button height
+        flex: 0 0 auto;
+        margin-right: 10px;
+    }
+
+    &-bordered {
+        background-color: lighten($color-accent, 30%);
+        border: 2px solid $color-accent;
+        line-height: rem(21);
+
+        &:hover {
+            background-color: $color-accent;
+        }
+    }
+
+    // Colors
+    @each $color, $value in $colors {
+        &-#{$color} {
+            background-color: $value;
+
+            @if $color == 'light' {
+                color: $color-dark;
+            }
+        }
+    }
+
+    // Group of buttons
+    &-group {
+        display: inline-flex;
+        position: relative;
+
+        .btn {
+            position: relative;
+            flex: 1 1 auto;
+
+            &:not(:last-child) {
+                border-top-right-radius: 0;
+                border-bottom-right-radius: 0;
+            }
+
+            &:not(:first-child) {
+                border-top-left-radius: 0;
+                border-bottom-left-radius: 0;
+            }
+        }
+    }
+}

@@ -1,0 +1,40 @@
+@each $breakpoint in map-keys($media) {
+	@include media($breakpoint) {
+		$bp: breakpoint($breakpoint);
+
+		// Text size
+		@each $size in $sizes {
+			.text#{$bp}-#{$size} {
+				font-size: #{$size}px;
+				line-height: 1.2;
+			}
+		}
+
+		// Text align
+		@each $align in $aligns {
+			.text#{$bp}-#{$align} {
+				text-align: $align;
+			}
+		}
+	}
+}
+
+@each $color, $value in $colors {
+	// Text color
+	.text-#{$color} {
+		color: $value;
+	}
+
+	// SVG Fill color
+	.svg-icon.fill-#{$color} {
+		fill: $value;
+	}
+}
+
+.text {
+	&-bold       { font-weight: 800; }
+	&-medium     { font-weight: 500; }
+    &-normal     { font-weight: 400; }
+    &-uppercase  { text-transform: uppercase; }
+	&-capitalize { text-transform: capitalize; }
+}

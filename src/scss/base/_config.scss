@@ -1,0 +1,54 @@
+// Colors
+$color-white: #FFF;
+$color-dark: #002134;
+
+$color-accent: #27FDFD;
+
+
+$color-green: #4FBF67;
+$color-red: #FF6628;
+$color-blue: #355DFF;
+$color-orange: #FF9F38;
+
+
+// Fonts
+$font-base: 'Nunito', sans-serif;
+
+
+// Easing
+$ease-in: cubic-bezier(.75, .18, .84, .63);
+$ease-out: cubic-bezier(.36, .52, .23, .93);
+
+
+// Text
+$sizes: 12, 14, 16, 18, 20, 25;
+$aligns: right, left, center, justify;
+
+
+// Widths & Heights
+$lengths: 25, 33, 50, 75, 100;
+
+
+// Spacing
+$spaces: 0, 5, 10, 20, 30, 40, 60;
+
+
+// Breakpoints
+$media: (xs: 0, md: 768px, lg: 1024px, xl: 1200px, xxl: 1400px) !default;
+
+
+// Border Radius
+$radius: (xs: 6, sm: 10, md: 20) !default;
+
+
+// Theme colors
+$colors: (
+    "accent":     $color-accent,
+
+    "success":    $color-green,
+    "danger":     $color-red,
+    "info":       $color-blue,
+    "warning":    $color-orange,
+
+    "light":      $color-white,
+) !default;
